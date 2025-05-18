@@ -1,13 +1,15 @@
 package org.mimage.dtos.request;
 
 import jakarta.validation.constraints.NotNull;
-import org.mimage.data.models.Profile;
 
-public record ProfileUpdateRequest(
+public record FollowRequest(
         @NotNull(message = "token should not be empty")
         String token,
         @NotNull(message = "id should not be empty")
         String id,
-        @NotNull(message = "Profile shouldn't be empty")
-        Profile profile) {
+        @NotNull(message = "follower id should not be null")
+        String followerId,
+        @NotNull(message = "following id should not be null")
+        String followingId
+) {
 }

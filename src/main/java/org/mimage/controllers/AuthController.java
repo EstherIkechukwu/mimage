@@ -1,5 +1,6 @@
 package org.mimage.controllers;
 
+import jakarta.validation.Valid;
 import org.mimage.data.models.Profile;
 import org.mimage.dtos.request.LoginRequest;
 import org.mimage.dtos.request.ProfileUpdateRequest;
@@ -18,17 +19,17 @@ public class AuthController {
     private Auth auth;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest){
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
         return ResponseEntity.ok(auth.register(registerRequest));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest){
         return ResponseEntity.ok(auth.login(loginRequest));
     }
 
     @PutMapping("/updateProfile")
-    public ResponseEntity<String> updateProfile(@RequestBody ProfileUpdateRequest profileUpdateRequest){
+    public ResponseEntity<String> updateProfile(@Valid @RequestBody ProfileUpdateRequest profileUpdateRequest){
         auth.updateProfile(profileUpdateRequest);
         return ResponseEntity.ok("Profile updated Successfully");
     }

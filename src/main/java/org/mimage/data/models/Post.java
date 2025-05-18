@@ -3,6 +3,7 @@ package org.mimage.data.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,9 @@ public class Post {
     private String imageUrl;
 
     private LocalDateTime createdAt;
+
+    @DBRef
+    private User author;
 
     public Post(){
         this.createdAt = LocalDateTime.now();
