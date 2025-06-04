@@ -9,10 +9,7 @@ import org.mimage.data.models.User;
 import org.mimage.data.repositories.PostRepository;
 import org.mimage.data.repositories.UserRepository;
 import org.mimage.dtos.request.PostRequest;
-import org.mimage.dtos.request.ProfileUpdateRequest;
-import org.mimage.dtos.response.AuthResponse;
 import org.mimage.services.serviceInterface.UserService;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +40,16 @@ public class UserServiceImpl implements UserService {
     private void validateRequest(PostRequest request) {
         Set<ConstraintViolation<PostRequest>> violations = validator.validate(request);
         if(!violations.isEmpty()) throw new ConstraintViolationException(violations);
+    }
+
+    @Override
+    public void deletePost(String userId, String postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("Post not found"));
+
+        if (!post.getAuthor().getId().equals(userId)) {
+            throw new SecurityException("You can only delete your own posts");
+        }
+        postRepository.delete(post);
     }
 }

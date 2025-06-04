@@ -7,4 +7,5 @@ import org.mimage.dtos.request.PostRequest;
 public interface UserService {
     Post createPost(@Valid PostRequest postRequest);
 
+    void deletePost(String userId, String postId);
 }
